@@ -27,6 +27,8 @@ function Characters() {
     getCharacters();
   }, [currentPage, searchQuery]);
 
+// Event handlers
+
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -44,6 +46,18 @@ function Characters() {
     setCurrentPage(1);
   };
 
+  // StatusColor determines color at the backgroundColor function
+
+  const getStatusColor = (status) => {
+    if (status === 'Alive') {
+      return 'green';
+    } else if (status === 'Dead') {
+      return 'red';
+    }
+    return 'black';
+  };
+
+  //Search form, search bar, 
   return (
     <div>
       <h1>Characters</h1>
@@ -63,10 +77,21 @@ function Characters() {
             <img src={character.image} alt={character.name} />
             <p>{character.name}</p>
             <p>{character.species}</p>
-            <p>{character.status}</p>
+            
+            {/* Setting the box color based on charachter status */}
+             
+            <div
+              className="status-box"
+              style={{ backgroundColor: getStatusColor(character.status) }}
+            >
+              {character.status}
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
+
       <div className="pagination">
         <button
           onClick={handlePrevPage}
